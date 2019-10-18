@@ -1,0 +1,9 @@
+a { cursor: pointer; }
+.pagination {
+  display: flex;
+	justify-content: center;
+}
+li{
+	margin-left: 5px;
+	list-style-type: none;
+}

@@ -1,0 +1,79 @@
+<form name="myForm">
+  <div class="inputik">
+    <fieldset>
+      <legend>ADD TITLE</legend>
+      <ul type="none">
+        <li>
+          <label for="name"
+            >Name book:
+            <input
+              class="book ng-invalid ng-touched"
+              type="text"
+              name="name"
+              placeholder="Введите название книги:"
+              required
+              [(ngModel)]="book.name"
+              #name="ngModel"
+            />
+          </label>
+        </li>
+        <li>
+          <label for="author"
+            >Author book:
+            <input
+              class="authorBook ng-invalid ng-touched"
+              type="text"
+              name="author"
+              placeholder="Введите автора книги:"
+              required
+              [(ngModel)]="book.author"
+              #author="ngModel"
+            />
+          </label>
+        </li>
+        <span>
+          <button
+            type="submit"
+            class="button"
+            [disabled]="name.invalid || author.invalid"
+            (click)="submit()"
+          >
+            Enter
+          </button>
+        </span>
+      </ul>
+      <div
+        [hidden]="
+          (name.valid || name.untouched) &&
+          (author.valid || author.untouched)
+        "
+      >
+        Invalid input
+      </div>
+    </fieldset>
+  </div>
+
+  <table>
+    <caption>
+      Book table
+    </caption>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Editing</th>
+    </tr>
+    <tr *ngFor="let val of pageOfItems; let i = index">
+      <td>{{ val.name }}</td>
+      <td>{{ val.author }}</td>
+      <td>
+        <button (click)="change(val)">Edit</button>
+        <button (click)="remove(i)">Delete</button>
+      </td>
+    </tr>
+  </table>
+</form>
+
+<app-pagination
+  (changePage)="onChangePage($event)"
+></app-pagination>
+<!-- [items]="arr" -->
