@@ -1,25 +1,21 @@
-import { Injectable } from "@angular/core";
-import { Keyable } from '../models/book';
+import { SimpleChanges } from "@angular/core";
 
-@Injectable({
-  providedIn: "root"
-})
 export class PaginateService {
-	// PaginatedDataSource
-	
-	array: Array<Keyable> = [];		
-	pager: any = {};
-	
-	constructor(public key: String) { }
+  // PaginatedDataSource
 
-  checkArray(initialPage) {
-    if (this.array && this.array.length) {
-      this.setPage(initialPage);
-    }
-	}
-	
-  checkChanges(changes, initialPage) {
-    if (changes.items.currentValue !== changes.items.previousValue) {
+  array: Array<any> = [];
+  pager: any = {};
+
+  constructor(public key: String) {}
+
+  checkArray(value: number) {
+		if (this.array && this.array.length) {
+			this.setPage(value);
+		}
+  }
+
+  checkChanges(changes: SimpleChanges, initialPage: number) {
+	    if (changes.pager.currentValue !== changes.pager.previousValue) {
       this.setPage(initialPage);
     }
   }
@@ -34,41 +30,52 @@ export class PaginateService {
   }
 
   initValue() {
-    let keys = Object.keys(localStorage); // Отфильтровать все значения которые начинаются с уникального ключа + спец символ
+    let keys = Object.keys(localStorage); // СПЕЦ СИМВОЛЫ
     for (let key of keys) {
-			let item = localStorage.getItem(key);
-			let object = JSON.parse(item);
-      this.array.unshift(object);
-		}
+      let item = localStorage.getItem(key);
+      let object = JSON.parse(item);
+      let objectValue = { key: key, value: object };
+      this.array.unshift(objectValue);
+    }
     return this.itemsPage();
   }
 
-  change(elem) {
-    localStorage.removeItem(elem.book);
-    elem.book = prompt("Book title change", "");
-    elem.authorBook = prompt("Changing the author of a book", "");
-    localStorage.setItem(elem.book, elem.authorBook);
+  change(elem, key) {
+    localStorage.removeItem(elem.key);
+    elem.value.nameBook = prompt("Book title change", "");
+    elem.value.authorBook = prompt("Changing the author of a book", "");
+    let objectValue = {
+      key: key + elem.value.nameBook + elem.value.authorBook,
+      value: {
+        nameBook: elem.value.nameBook,
+        authorBook: elem.value.authorBook
+      }
+    };
+    localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
   }
 
-  arrayRemovingElement(index) {
-		console.log(index)
-    localStorage.removeItem(index);
+  arrayRemovingElement(elem, index) {
+    localStorage.removeItem(elem.key);
     this.array.splice(index, 1);
-		return this.itemsPage();
+    return this.itemsPage();
   }
 
-  unshift(element) {
-    this.array.unshift(element);
-    localStorage.setItem(element.name, JSON.stringify(element));
+  unshift(element, key) {
+    let objectValue = {
+      key: key + element.key,
+      value: { nameBook: element.name, authorBook: element.author }
+    };
+    this.array.unshift(objectValue);
+    localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
     return this.itemsPage();
-	}
-	
-	itemsPage(){
-		this.pager = this.paginate(this.array.length);
-    return this.array.slice(this.pager.startIndex, this.pager.endIndex + 1);
-	}
+  }
 
- 	private paginate(
+  itemsPage() {
+    this.pager = this.paginate(this.array.length);
+    return this.array.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+
+  private paginate(
     totalItems: number,
     currentPage: number = 1,
     pageSize: number = 10,

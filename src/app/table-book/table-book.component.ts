@@ -1,40 +1,53 @@
-import { Component, OnInit} from "@angular/core";
-import { PaginateService } from '../services/paginate.service';
-import { Book } from '../models/book';
+import { Component, OnInit, SimpleChanges } from "@angular/core";
+import { PaginateService } from "../services/paginate.service";
+import { Book } from "../models/book";
+
+const KEY = "BOOK";
 
 @Component({
   selector: "app-table-book",
   templateUrl: "./table-book.component.html",
-  styleUrls: ["./table-book.component.css"]
+  styleUrls: ["./table-book.component.css"],
+  providers: [{ provide: PaginateService, useValue: "key" }]
 })
 export class TableBookComponent implements OnInit {
+  book: Book = new Book("", "");
+  pageOfItems: Array<any>;
+	protected pagination;
 
-	book: Book = new Book("book", "author");
-
-	pageOfItems: Array<any>;
-
-  constructor(private pagination: PaginateService) {
-		this.pagination = new PaginateService();
-	}
-
-  ngOnInit() {
-		this.pageOfItems = this.pagination.initValue();
-	}
-
-	onChangePage(pageOfItems) {
-		this.pageOfItems = pageOfItems;
+	initialPage: number = 1;
+	
+  constructor() {
+    this.pagination = new PaginateService(this.book.key);
   }
 
-  change(elem) {
-    this.pagination.change(elem);
+  ngOnInit() {
+    this.pageOfItems = this.pagination.initValue();
+  }
+
+	onCheckArray(value: number){
+		this.pagination.checkArray(value);
 	}
-	
-  remove(index) {
-    this.pageOfItems = this.pagination.arrayRemovingElement(index);
+
+	onCheckChanges(changes: SimpleChanges){
+		this.pagination.checkChanges(changes, this.initialPage);
+	}
+
+  onChangePage(page: number) {
+		console.log(page)
+    this.pageOfItems = this.pagination.setPage(page);
+  }
+
+  change(elem, key = KEY) {
+    this.pagination.change(elem, key);
+  }
+
+  remove(elem, index) {
+    this.pageOfItems = this.pagination.arrayRemovingElement(elem, index);
   }
 
   submit() {
-		let book = new Book(this.book.name,this.book.author);
-    this.pageOfItems = this.pagination.unshift(book); 
+    let book = new Book(this.book.name, this.book.author);
+    this.pageOfItems = this.pagination.unshift(book, KEY);
   }
 }

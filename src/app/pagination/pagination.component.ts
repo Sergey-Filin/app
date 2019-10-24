@@ -1,13 +1,13 @@
 import {
   Component,
-  Input,
   Output,
   EventEmitter,
   OnInit,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  Input
 } from "@angular/core";
-import { PaginateService } from "../services/paginate.service";
+import { PaginateService } from "src/app/services/paginate.service";
 
 @Component({
   selector: "app-pagination",
@@ -15,25 +15,24 @@ import { PaginateService } from "../services/paginate.service";
   styleUrls: ["./pagination.component.css"]
 })
 export class PaginationComponent implements OnInit, OnChanges {
+	@Input() pager: object;
+	@Output() initValue = new EventEmitter<number>(true);
+	@Output() checkChanges = new EventEmitter<SimpleChanges>(true);
+	@Output() changePage = new EventEmitter<number>(true);
 
-  @Output() changePage = new EventEmitter<any>(true);
-
-  initialPage = 1;
-  pageSize = 10;
-  maxPages = 10;
-
-  constructor(protected pagination: PaginateService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.pagination.checkArray(this.initialPage);
+		this.initValue.emit(1);
+    // this.pagination.checkArray(this.initialPage);
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.pagination.checkChanges(changes, this.initialPage);
+		this.checkChanges.emit(changes);
   }
 
-  private setPage(page: number, pageSize: number, maxPages: number) {
-    let pageOfItems = this.pagination.setPage(page, pageSize, maxPages);
-    this.changePage.emit(pageOfItems);
+  public setPage(page) {
+		console.log(this.pager)
+    this.changePage.emit(page);
   }
 }
