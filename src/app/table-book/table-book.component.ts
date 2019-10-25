@@ -1,6 +1,7 @@
 import { Component, OnInit, SimpleChanges } from "@angular/core";
-import { PaginateService } from "../services/paginate.service";
-import { Book } from "../models/book";
+import { PaginateService } from "../shared/services/paginate.service";
+import { Book } from "../shared/models/book";
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 const KEY = "BOOK";
 
@@ -13,17 +14,29 @@ const KEY = "BOOK";
 export class TableBookComponent implements OnInit {
   book: Book = new Book("", "");
   pageOfItems: Array<any>;
+	tableBookForm: FormGroup;
 	protected pagination;
 
 	initialPage: number = 1;
 	
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.pagination = new PaginateService(this.book.key);
   }
 
   ngOnInit() {
+		this.tableBookForm = this.fb.group({
+			nameBook: ["", Validators.required],
+			authorBook: ["", Validators.required]
+		})
     this.pageOfItems = this.pagination.initValue();
   }
+
+	get f() { return this.tableBookForm.controls; }
+
+	
+	onPager(pagerChange){
+		this.pagination.pager = pagerChange;
+	}
 
 	onCheckArray(value: number){
 		this.pagination.checkArray(value);
@@ -34,7 +47,6 @@ export class TableBookComponent implements OnInit {
 	}
 
   onChangePage(page: number) {
-		console.log(page)
     this.pageOfItems = this.pagination.setPage(page);
   }
 
@@ -47,7 +59,8 @@ export class TableBookComponent implements OnInit {
   }
 
   submit() {
-    let book = new Book(this.book.name, this.book.author);
+		console.log()
+		let book = new Book(this.tableBookForm.value.nameBook, this.tableBookForm.value.authorBook);
     this.pageOfItems = this.pagination.unshift(book, KEY);
   }
 }

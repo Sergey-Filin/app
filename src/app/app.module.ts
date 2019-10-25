@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { TableBookComponent } from './table-book/table-book.component';
 import { TableUsersComponent } from './table-users/table-users.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
 
 @NgModule({
@@ -20,7 +20,8 @@ import { PaginationComponent } from './pagination/pagination.component';
   imports: [
     BrowserModule,
 		AppRoutingModule,
-		FormsModule
+		FormsModule,
+		ReactiveFormsModule
   ],
   providers: [
 	],
