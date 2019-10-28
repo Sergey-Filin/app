@@ -11,8 +11,8 @@
               type="text"
               name="name"
               placeholder="Введите название книги:"
-							required
-							formControlName="nameBook"
+              required
+              formControlName="nameBook"
             />
           </label>
         </li>
@@ -22,8 +22,8 @@
             <input
               class="authorBook ng-invalid ng-touched"
               type="text"
-							name="author"
-							formControlName="authorBook"							
+              name="author"
+              formControlName="authorBook"
               placeholder="Введите автора книги:"
               required
             />
@@ -40,8 +40,11 @@
           </button>
         </span>
       </ul>
-			<div
-			*ngIf="(f.nameBook.valid || f.nameBook.untouched) && (f.authorBook.valid || f.authorBook.untouched)"
+      <div
+        *ngIf="
+          (f.nameBook.valid || f.nameBook.untouched) &&
+          (f.authorBook.valid || f.authorBook.untouched)
+        "
       >
         Invalid input
       </div>
@@ -61,17 +64,52 @@
       <td>{{ val.value.nameBook }}</td>
       <td>{{ val.value.authorBook }}</td>
       <td>
-        <button (click)="change(val)">Edit</button>
+        <button (click)="openModal('custom-modal-1', val)">Edit</button>
         <button (click)="remove(val, i)">Delete</button>
       </td>
     </tr>
   </table>
+
+  <jw-modal id="custom-modal-1">
+    <h1>Data change</h1>
+    <p>
+      Change title book name:
+      <input
+        class="nameBook ng-invalid ng-touched"
+        type="text"
+				name="name"
+        formControlName="nameBook"
+				value = "changeValueNameBook"				
+        required
+      />
+    </p>
+    <p>
+      Changing the author of the book:
+      <input
+        class="authorBook ng-invalid ng-touched"
+        type="text"
+				name="author"
+				value = "changeValueAuthorBook"
+        formControlName="authorBook"
+        required
+      />
+    </p>
+		<button (click)="closeModal('custom-modal-1')">Close</button>
+		<button
+		type="submit"
+		[disabled]="f.nameBook.invalid || f.authorBook.invalid"
+		(click)="saveChange()"
+		(click)="closeModal('custom-modal-1')"
+	>
+		Enter
+		</button>
+  </jw-modal>
 </form>
 
 <app-pagination
-	[pager] = "pagination.pager" 
-	(pagerChange) = "onPager($event)" 
-	(initValue)="onCheckArray($event)"
-	(checkChanges)="onCheckChanges($event)"
+  [pager]="pagination.pager"
+  (pagerChange)="onPager($event)"
+  (initValue)="onCheckArray($event)"
+  (checkChanges)="onCheckChanges($event)"
   (changePage)="onChangePage($event)"
 ></app-pagination>

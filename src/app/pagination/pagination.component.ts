@@ -29,12 +29,7 @@ export class PaginationComponent implements OnInit, OnChanges {
     // this.pagination.checkArray(this.initialPage);
 	}
 	
-
-	qwe( p: number = 0  ){
-		
-
- 	}
-
+	
   nextPage() {
 		this.page++;
 		this.setPage(this.page);

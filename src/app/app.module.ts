@@ -8,6 +8,7 @@ import { TableBookComponent } from './table-book/table-book.component';
 import { TableUsersComponent } from './table-users/table-users.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginationComponent } from './pagination/pagination.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PaginationComponent } from './pagination/pagination.component';
     DashboardComponent,
     TableBookComponent,
     TableUsersComponent,
-		PaginationComponent
+		PaginationComponent,
+		ModalComponent
   ],
   imports: [
     BrowserModule,

@@ -40,18 +40,17 @@ export class PaginateService {
     return this.itemsPage();
   }
 
-  change(elem, key) {
-    localStorage.removeItem(elem.key);
-    elem.value.nameBook = prompt("Book title change", "");
-    elem.value.authorBook = prompt("Changing the author of a book", "");
+  change(currentValueNameBook, currentValueAuthorBook, currentKey, key) {
+		localStorage.removeItem(currentKey)
+
     let objectValue = {
-      key: key + elem.value.nameBook + elem.value.authorBook,
+      key: key + currentValueNameBook + currentValueAuthorBook,
       value: {
-        nameBook: elem.value.nameBook,
-        authorBook: elem.value.authorBook
+        nameBook: currentValueNameBook,
+        authorBook: currentValueAuthorBook
       }
     };
-    localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
+		localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
   }
 
   arrayRemovingElement(elem, index) {
