@@ -39,7 +39,7 @@ export class TableBookComponent implements OnInit {
     return this.tableBookForm.controls;
   }
 
-	openModal(id: string, elem) {			//   записать новое значение туда где изменяем || передать значение изменяемого елемента ||  привязка в реактивных формах 
+	openModal(id: string, elem) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
     this.changeValueNameBook = elem.value.nameBook;
     this.changeValueAuthorBook = elem.value.authorBook;
     this.modalService.open(id);
@@ -58,12 +58,9 @@ export class TableBookComponent implements OnInit {
 	closeModal(id: string) {
     this.modalService.close(id);
   }
-  onPager(pagerChange) {
-    this.pagination.pager = pagerChange;
-  }
 
   onCheckArray(value: number) {
-    this.pagination.checkArray(value);
+		this.pagination.checkArray(value);
   }
 
   onCheckChanges(changes: SimpleChanges) {

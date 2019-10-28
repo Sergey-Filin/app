@@ -15,9 +15,8 @@ import { Pager } from "../shared/interfaces";
   styleUrls: ["./pagination.component.css"]
 })
 export class PaginationComponent implements OnInit, OnChanges {
-  @Input() pager: Pager;
-  @Output() pagerChange: any = new EventEmitter<Pager>(true);
-  @Output() initValue: EventEmitter<number> = new EventEmitter<number>(true);
+	@Input() pager: Pager;
+	@Output() initValue: EventEmitter<number> = new EventEmitter<number>(true);
   @Output() checkChanges: EventEmitter<SimpleChanges> = new EventEmitter<SimpleChanges>(true);
   @Output() changePage: EventEmitter<number> = new EventEmitter<number>(true);
   constructor() {}
@@ -29,22 +28,19 @@ export class PaginationComponent implements OnInit, OnChanges {
     // this.pagination.checkArray(this.initialPage);
 	}
 	
-	
   nextPage() {
 		this.page++;
 		this.setPage(this.page);
   }
 
   previousPage() {
-    let page = this.pager.currentPage - 1;
-    this.pagerChange.emit(this.pager);
-    this.setPage(page);
+    this.page--;
+		this.setPage(this.page);
   }
 
   lastPage() {
-    let page = this.pager.totalPages;
-    this.pagerChange.emit(this.pager);
-    this.setPage(page);
+    this.page = this.pager.totalPages;
+    this.setPage(this.page);
   }
 
   ngOnChanges(changes: SimpleChanges) {
