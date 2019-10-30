@@ -1,4 +1,4 @@
-<form [formGroup]="tableBookForm" name="myForm">
+<form [formGroup]="tableBookForm">
   <div class="inputik">
     <fieldset>
       <legend>ADD TITLE</legend>
@@ -67,43 +67,8 @@
         <button (click)="openModal('custom-modal-1', val)">Edit</button>
         <button (click)="remove(val, i)">Delete</button>
       </td>
-    </tr>
-  </table>
-
-  <jw-modal id="custom-modal-1">
-    <h1>Data change</h1>
-    <p>
-      Change title book name:
-      <input
-        class="nameBook ng-invalid ng-touched"
-        type="text"
-				name="name"
-        formControlName="nameBook"
-				value = "changeValueNameBook"				
-        required
-      />
-    </p>
-    <p>
-      Changing the author of the book:
-      <input
-        class="authorBook ng-invalid ng-touched"
-        type="text"
-				name="author"
-				value = "changeValueAuthorBook"
-        formControlName="authorBook"
-        required
-      />
-    </p>
-		<button (click)="closeModal('custom-modal-1')">Close</button>
-		<button
-		type="submit"
-		[disabled]="f.nameBook.invalid || f.authorBook.invalid"
-		(click)="saveChange()"
-		(click)="closeModal('custom-modal-1')"
-	>
-		Enter
-		</button>
-  </jw-modal>
+	    </tr>
+	</table>	
 </form>
 
 <app-pagination
@@ -113,3 +78,5 @@
   (changePage)="onChangePage($event)"
 ></app-pagination>
 
+
+<!-- <jw-modal id="custom-modal-1"></jw-modal> -->

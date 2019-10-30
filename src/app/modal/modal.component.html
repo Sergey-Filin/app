@@ -1,6 +1,32 @@
-<div class="jw-modal">
+<form [formGroup]="modalForm">
+  <div class="jw-modal">
     <div class="jw-modal-body">
-        <ng-content></ng-content>
+      <h1>Data change</h1>
+      <p>
+        Change title book name:
+        <input
+          class="ng-invalid ng-touched"
+          type="text"
+          name="name"
+          formControlName="modalAuthorBook"
+          required
+        />
+      </p>
+      <p>
+        Changing the author of the book:
+        <input
+          class="ng-invalid ng-touched"
+          type="text"
+          formControlName="modalAuthorBook"
+          name="author"
+          required
+        />
+      </p>
+      <button>Close</button>
+      <button type="submit">
+        Enter
+      </button>
     </div>
-</div>
-<div class="jw-modal-background"></div>
+  </div>
+  <div class="jw-modal-background"></div>
+</form>

@@ -1,41 +1,48 @@
-import { Component, ViewEncapsulation, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, OnDestroy } from '@angular/core';
 import { ModalService } from '../shared/services/modal.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({ 
     selector: 'jw-modal', 
     templateUrl: 'modal.component.html', 
-    styleUrls: ['modal.component.less'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['modal.component.less']
 })
 export class ModalComponent implements OnInit, OnDestroy {
-    @Input() id: string;
-    private element: any;
+    id: string;
+		private element: any;
+		modalForm: FormGroup;
 
-    constructor(private modalService: ModalService, private el: ElementRef) {
-        this.element = el.nativeElement;
+		
+    constructor(private fb: FormBuilder, private modalService: ModalService, private el: ElementRef) {
+				this.element = el.nativeElement;
     }
 
     ngOnInit(): void {
-        // ensure id attribute exists
-        if (!this.id) {
+
+			this.modalForm = this.fb.group({
+				modalNameBook: ["", Validators.required],
+				modalAuthorBook: ["", Validators.required]
+			});
+
+
+
+				if (!this.id) {
             console.error('modal must have an id');
             return;
         }
-
-        // move element to bottom of page (just before </body>) so it can be displayed above everything else
         document.body.appendChild(this.element);
 
-        // close modal on background click
         this.element.addEventListener('click', el => {
             if (el.target.className === 'jw-modal') {
                 this.close();
             }
         });
-
-        // add self (this modal instance) to the modal service so it's accessible from controllers
+				console.log(this);
         this.modalService.add(this);
     }
+
+
 
     ngOnDestroy(): void {
         this.modalService.remove(this.id);

@@ -27,6 +27,11 @@ export class PaginationComponent implements OnInit, OnChanges {
     this.initValue.emit(1);
 	}
 	
+	firstPage(){
+		this.page = 1;
+		this.setPage(1);
+	}
+
   nextPage() {
 		if(this.page !== this.pager.totalPages){
 		this.page++;

@@ -1,16 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserModule } from "@angular/platform-browser";
+import { NgModule } from "@angular/core";
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TableBookComponent } from './table-book/table-book.component';
-import { TableUsersComponent } from './table-users/table-users.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PaginationComponent } from './pagination/pagination.component';
+import { AppComponent } from "./app.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
+import { TableBookComponent } from "./table-book/table-book.component";
+import { TableUsersComponent } from "./table-users/table-users.component";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { PaginationComponent } from "./pagination/pagination.component";
 import { ModalComponent } from './modal/modal.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
+// import { ModalModule } from "./modal/modal.module";
 
 @NgModule({
   declarations: [
@@ -21,16 +19,8 @@ import { MatSliderModule } from '@angular/material/slider';
 		PaginationComponent,
 		ModalComponent
   ],
-  imports: [
-    BrowserModule,
-		AppRoutingModule,
-		FormsModule,
-		ReactiveFormsModule,
-		BrowserAnimationsModule,
-		MatSliderModule
-  ],
-  providers: [
-	],
+  imports: [BrowserModule, ReactiveFormsModule, FormsModule],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
