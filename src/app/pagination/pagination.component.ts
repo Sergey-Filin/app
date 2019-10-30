@@ -25,18 +25,21 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.initValue.emit(1);
-    // this.pagination.checkArray(this.initialPage);
 	}
 	
   nextPage() {
+		if(this.page !== this.pager.totalPages){
 		this.page++;
 		this.setPage(this.page);
-  }
+		}
+	}
 
   previousPage() {
-    this.page--;
+		if(this.page !== this.pager.startPage){
+		this.page--;
 		this.setPage(this.page);
-  }
+		}
+	}
 
   lastPage() {
     this.page = this.pager.totalPages;

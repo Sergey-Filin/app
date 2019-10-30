@@ -1,11 +1,13 @@
 export class Pager {
-	totalItems: number;
-	currentPage: number;
-	pageSize: number;
-	totalPages: number;
-	startPage: number;
-	endPage: number;
-	startIndex: number;
-	endIndex: number;
-	pages: Array<string>	
-}
+  constructor(
+    public totalItems: number,
+    public currentPage: number,
+    public pageSize: number,
+    public totalPages: number,
+    public startPage: number,
+    public endPage: number,
+    public startIndex: number,
+    public endIndex: number,
+    public pages: Array<number>
+  ) {}
+	}

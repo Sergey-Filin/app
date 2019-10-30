@@ -1,4 +1,5 @@
 import { SimpleChanges } from "@angular/core";
+import { Pager } from "../interfaces";
 
 export class PaginateService {
   // PaginatedDataSource
@@ -9,13 +10,13 @@ export class PaginateService {
   constructor(public key: String) {}
 
   checkArray(value: number) {
-		if (this.array && this.array.length) {
-			this.setPage(value);
-		}
+    if (this.array && this.array.length) {
+      this.setPage(value);
+    }
   }
 
   checkChanges(changes: SimpleChanges, initialPage: number) {
-	    if (changes.pager.currentValue !== changes.pager.previousValue) {
+    if (changes.pager.currentValue !== changes.pager.previousValue) {
       this.setPage(initialPage);
     }
   }
@@ -41,7 +42,7 @@ export class PaginateService {
   }
 
   change(currentValueNameBook, currentValueAuthorBook, currentKey, key) {
-		localStorage.removeItem(currentKey)
+    localStorage.removeItem(currentKey);
 
     let objectValue = {
       key: key + currentValueNameBook + currentValueAuthorBook,
@@ -50,7 +51,7 @@ export class PaginateService {
         authorBook: currentValueAuthorBook
       }
     };
-		localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
+    localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
   }
 
   arrayRemovingElement(elem, index) {
@@ -114,16 +115,16 @@ export class PaginateService {
       i => startPage + i
     );
 
-    return {
-      totalItems: totalItems,
-      currentPage: currentPage,
-      pageSize: pageSize,
-      totalPages: totalPages,
-      startPage: startPage,
-      endPage: endPage,
-      startIndex: startIndex,
-      endIndex: endIndex,
-      pages: pages
-    };
+    return new Pager(
+      (totalItems = totalItems),
+      (currentPage = currentPage),
+      (pageSize = pageSize),
+      (totalPages = totalPages),
+      (startPage = startPage),
+      (endPage = endPage),
+      (startIndex = startIndex),
+      (endIndex = endIndex),
+      (pages = pages)
+    );
   }
 }
