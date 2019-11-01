@@ -1,8 +1,9 @@
-import { Component, OnInit, SimpleChanges, ɵConsole } from "@angular/core";
+import { Component, OnInit, SimpleChanges } from "@angular/core";
 import { PaginateService } from "../shared/services/paginate.service";
 import { Book } from "../shared/models/book";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ModalService } from "../shared/services/modal.service";
+import { createOfflineCompileUrlResolver } from '@angular/compiler';
 
 const KEY = "BOOK";
 
@@ -13,7 +14,7 @@ const KEY = "BOOK";
   providers: [{ provide: PaginateService, useValue: "key" }]
 })
 export class TableBookComponent implements OnInit {
-  book: Book = new Book("", "");
+	book: Book = new Book("", "");
   pageOfItems: Array<any>;
   tableBookForm: FormGroup;
   protected pagination;
@@ -21,7 +22,9 @@ export class TableBookComponent implements OnInit {
   changeValueNameBook;
   changeValueAuthorBook;
 
-  initialPage: number = 1;
+	initialPage: number = 1;
+	
+	tableBookInput: string = "";
 
   constructor(private fb: FormBuilder, private modalService: ModalService) {
     this.pagination = new PaginateService(this.book.key);
@@ -39,11 +42,22 @@ export class TableBookComponent implements OnInit {
     return this.tableBookForm.controls;
   }
 
-	openModal(id: string, elem) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
-    this.changeValueNameBook = elem.value.nameBook;
-    this.changeValueAuthorBook = elem.value.authorBook;
+	onModalFormGroup(modalFormValue){
+		console.log(modalFormValue) 
+		console.log("SAVECHANGE") 
+	}
+
+	arrayElement(elem){
+		this.tableBookInput = elem.value;		
+		console.log(this.tableBookInput);
+	}
+
+	openModal(id: string) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
+		// this.tableBookInput = elem.value;
+		// console.log(this.tableBookInput);
+		
     this.modalService.open(id);
-  }
+	}
 
   saveChange(key = KEY) {
 		
@@ -54,10 +68,6 @@ export class TableBookComponent implements OnInit {
    	this.pagination.change(currentValueNameBook, currentValueAuthorBook, currentKey, key);
 		console.log(this.pageOfItems)
 	}
-
-	closeModal(id: string) {
-    this.modalService.close(id);
-  }
 
   onCheckArray(value: number) {
 		this.pagination.checkArray(value);

@@ -2,7 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
-    private modals: any[] = [];
+		private modals: any[] = [];
+		
+		
+
 
     add(modal: any) {
         this.modals.push(modal);

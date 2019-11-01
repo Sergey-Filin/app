@@ -7,7 +7,7 @@
           <label for="name"
             >Name book:
             <input
-              class="book ng-invalid ng-touched"
+              class="ng-invalid ng-touched"
               type="text"
               name="name"
               placeholder="Введите название книги:"
@@ -20,7 +20,7 @@
           <label for="author"
             >Author book:
             <input
-              class="authorBook ng-invalid ng-touched"
+              class="ng-invalid ng-touched"
               type="text"
               name="author"
               formControlName="authorBook"
@@ -41,11 +41,9 @@
         </span>
       </ul>
       <div
-        *ngIf="
-          (f.nameBook.valid || f.nameBook.untouched) &&
-          (f.authorBook.valid || f.authorBook.untouched)
-        "
-      >
+				*ngIf="(f.nameBook.invalid || f.nameBook.untouched) || (f.authorBook.invalid || f.authorBook.untouched)"
+			>
+			<!-- "(f['nameBook'].valid || f['nameBook'].untouched) && (f['authorBook'].valid || f['authorBook'].untouched)" -->			
         Invalid input
       </div>
     </fieldset>
@@ -64,7 +62,7 @@
       <td>{{ val.value.nameBook }}</td>
       <td>{{ val.value.authorBook }}</td>
       <td>
-        <button (click)="openModal('custom-modal-1', val)">Edit</button>
+        <button (click)="openModal('custom-modal-1'); arrayElement(val)">Edit</button>
         <button (click)="remove(val, i)">Delete</button>
       </td>
 	    </tr>
@@ -79,4 +77,8 @@
 ></app-pagination>
 
 
-<!-- <jw-modal id="custom-modal-1"></jw-modal> -->
+<jw-modal
+	(modalFormGroup) = "onModalFormGroup($event)"
+	id = "custom-modal-1"
+	[tableBookValue]= "tableBookInput" 
+></jw-modal>
