@@ -10,8 +10,6 @@ import {
 import { ModalService } from "../shared/services/modal.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
-// export type FormInterface = {modalNameBook: string, modalAuthorBook: string};
-
 @Component({
   selector: "jw-modal",
   templateUrl: "modal.component.html",
@@ -38,8 +36,6 @@ export class ModalComponent implements OnInit, OnDestroy {
       modalAuthorBook: ["", Validators.required]
     });
 
-		console.log("123");		
-		console.log(this.tableBookValue.nameBook);		
     if (!this.id) {
       console.error("modal must have an id");
       return;
@@ -67,9 +63,10 @@ export class ModalComponent implements OnInit, OnDestroy {
     this.element.remove();
   }
 
-  open(): void {		
+  open(elem): void {		
 		
-		console.log(this.tableBookValue.nameBook);		
+		console.log("modal.component open() ", this.tableBookValue.nameBook);		
+		console.log("modal.component open() ELEM", elem);		
 
     this.element.firstElementChild.style.display = "block";
     document.body.classList.add("jw-modal-open");

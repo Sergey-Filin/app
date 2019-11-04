@@ -62,7 +62,7 @@
       <td>{{ val.value.nameBook }}</td>
       <td>{{ val.value.authorBook }}</td>
       <td>
-        <button (click)="openModal('custom-modal-1'); arrayElement(val)">Edit</button>
+        <button (click)="openModal('custom-modal-1', val)">Edit</button>
         <button (click)="remove(val, i)">Delete</button>
       </td>
 	    </tr>

@@ -3,7 +3,7 @@ import { PaginateService } from "../shared/services/paginate.service";
 import { Book } from "../shared/models/book";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ModalService } from "../shared/services/modal.service";
-import { createOfflineCompileUrlResolver } from '@angular/compiler';
+import { TableValue, TableValueFull } from '../shared/interfaces';
 
 const KEY = "BOOK";
 
@@ -15,8 +15,8 @@ const KEY = "BOOK";
 })
 export class TableBookComponent implements OnInit {
 	book: Book = new Book("", "");
-  pageOfItems: Array<any>;
-  tableBookForm: FormGroup;
+	pageOfItems: TableValueFull;  // = new TableValueFull("",{"", ""});
+  tableBookForm: FormGroup<>;
   protected pagination;
 
   changeValueNameBook;
@@ -24,7 +24,7 @@ export class TableBookComponent implements OnInit {
 
 	initialPage: number = 1;
 	
-	tableBookInput: string = "";
+	tableBookInput: TableValue = new TableValue("", "");
 
   constructor(private fb: FormBuilder, private modalService: ModalService) {
     this.pagination = new PaginateService(this.book.key);
@@ -43,20 +43,16 @@ export class TableBookComponent implements OnInit {
   }
 
 	onModalFormGroup(modalFormValue){
-		console.log(modalFormValue) 
-		console.log("SAVECHANGE") 
+		console.log("onModalFormGroup", modalFormValue) 
 	}
 
 	arrayElement(elem){
-		this.tableBookInput = elem.value;		
-		console.log(this.tableBookInput);
 	}
 
-	openModal(id: string) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
-		// this.tableBookInput = elem.value;
-		// console.log(this.tableBookInput);
-		
-    this.modalService.open(id);
+	openModal(id: string, elem) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
+		this.tableBookInput = elem.value;		
+		console.log("arrayElement", this.tableBookInput.nameBook);
+    this.modalService.open(id, elem);
 	}
 
   saveChange(key = KEY) {
