@@ -16,16 +16,11 @@ const KEY = "BOOK";
 export class TableBookComponent implements OnInit {
 	book: Book = new Book("", "");
 	pageOfItems: TableValueFull;  // = new TableValueFull("",{"", ""});
-  tableBookForm: FormGroup<>;
+  tableBookForm: FormGroup;
   protected pagination;
-
-  changeValueNameBook;
-  changeValueAuthorBook;
 
 	initialPage: number = 1;
 	
-	tableBookInput: TableValue = new TableValue("", "");
-
   constructor(private fb: FormBuilder, private modalService: ModalService) {
     this.pagination = new PaginateService(this.book.key);
   }
@@ -42,27 +37,13 @@ export class TableBookComponent implements OnInit {
     return this.tableBookForm.controls;
   }
 
-	onModalFormGroup(modalFormValue){
-		console.log("onModalFormGroup", modalFormValue) 
-	}
-
-	arrayElement(elem){
+	onModalFormGroup(modalForm, key = KEY){
+		this.pagination.change(modalForm.modalForm.modalNameBook, modalForm.modalForm.modalAuthorBook, modalForm.currentKey, key);
 	}
 
 	openModal(id: string, elem) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
-		this.tableBookInput = elem.value;		
-		console.log("arrayElement", this.tableBookInput.nameBook);
-    this.modalService.open(id, elem);
-	}
-
-  saveChange(key = KEY) {
-		
-    let currentKey = key + this.changeValueNameBook  + this.changeValueAuthorBook;
-		let currentValueNameBook = this.tableBookForm.value.nameBook;
-    let currentValueAuthorBook = this.tableBookForm.value.authorBook;
-	
-   	this.pagination.change(currentValueNameBook, currentValueAuthorBook, currentKey, key);
-		console.log(this.pageOfItems)
+		elem.key = KEY + elem.value.nameBook + elem.value.authorBook;
+		this.modalService.open(id, elem);
 	}
 
   onCheckArray(value: number) {

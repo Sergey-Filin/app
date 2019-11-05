@@ -51,7 +51,7 @@ export class PaginateService {
         authorBook: currentValueAuthorBook
       }
     };
-    localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
+		localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
   }
 
   arrayRemovingElement(elem, index) {

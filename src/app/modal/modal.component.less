@@ -1,39 +1,53 @@
 .jw-modal-form {
-	display: none;
+  display: none;
 
-	.jw-modal {
-			position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
+  .jw-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
 
-			z-index: 1000;
-			
-			overflow: auto;
+    z-index: 1000;
 
-			.jw-modal-body {
-					padding: 50px 50px 50px 250px;
-					background: #fff;
+    overflow: auto;
 
-					margin: 200px 400px 0px 400px;
+    .jw-modal-body {
+      padding: 50px 50px 50px 250px;
+      background: #fff;
+
+      margin: 200px 400px 0px 400px;
+
+			button {
+				background-color: #00e8e8;
+				border-radius: 30px;
+				padding: 5px 12px 5px 12px;
+				margin-left: 5px;
 			}
-	}
 
-	.jw-modal-background {
-			position: fixed;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			left: 0;
+      input.ng-touched.ng-invalid {
+        border: solid red 2px;
+      }
+      input.ng-touched.ng-valid {
+        border: solid green 2px;
+      }
+    }
+  }
 
-			background-color: #000;
-			opacity: 0.75;
-			
-			z-index: 900;
-	}
+  .jw-modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    background-color: #000;
+    opacity: 0.75;
+
+    z-index: 900;
+  }
 }
 
 body.jw-modal-open {
-	overflow: hidden;
+  overflow: hidden;
 }

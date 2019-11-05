@@ -1,5 +1,5 @@
 <!-- (ngSubmit)= "submit()" -->
-<form [formGroup]="modalForm" class= "jw-modal-form"> 
+<form [formGroup]="modalForm" class="jw-modal-form">
   <div class="jw-modal">
     <div class="jw-modal-body">
       <h1>Data change</h1>
@@ -23,10 +23,14 @@
           required
         />
       </p>
-		  <button type="submit" (click)="submit(); closeModal('custom-modal-1')">
+      <button
+        type="submit"
+        (click)="closeModal('custom-modal-1')"
+				[disabled]="f.modalNameBook.invalid || f.modalAuthorBook.invalid"
+      >
         Enter
       </button>
-    	<button (click)="closeModal('custom-modal-1')">Close</button>
+      <button (click)="closeModal('custom-modal-1')">Close</button>
     </div>
   </div>
   <div class="jw-modal-background"></div>

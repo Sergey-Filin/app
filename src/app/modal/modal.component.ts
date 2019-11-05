@@ -20,7 +20,9 @@ export class ModalComponent implements OnInit, OnDestroy {
 	@Input() tableBookValue: any;
 	private element: any;
   modalForm: FormGroup;
-  @Output() modalFormGroup = new EventEmitter();
+	@Output() modalFormGroup = new EventEmitter();
+	
+	currentElement;
 
   constructor(
     private fb: FormBuilder,
@@ -48,28 +50,30 @@ export class ModalComponent implements OnInit, OnDestroy {
       }
     });
 		this.modalService.add(this);
+	}
+	
+	get f() {
+    return this.modalForm.controls;
   }
 
-  submit() {
-    this.modalFormGroup.emit(this.modalForm.value);
-	}
-
-	closeModal(id: string) {	
+	closeModal(id: string) {
+		this.currentElement.value.nameBook = this.modalForm.controls.modalNameBook.value;
+		this.currentElement.value.authorBook = this.modalForm.controls.modalAuthorBook.value;
+		this.modalFormGroup.emit({modalForm: this.modalForm.value, currentKey: this.currentElement.key});
 		this.modalService.close(id);
   }
 
   ngOnDestroy(): void {
     this.modalService.remove(this.id);
-    this.element.remove();
+		this.element.remove();
   }
 
-  open(elem): void {		
-		
-		console.log("modal.component open() ", this.tableBookValue.nameBook);		
-		console.log("modal.component open() ELEM", elem);		
-
+  open(elem): void {
+		this.modalForm.controls.modalNameBook.setValue(elem.value.nameBook);
+		this.modalForm.controls.modalAuthorBook.setValue(elem.value.authorBook);
     this.element.firstElementChild.style.display = "block";
-    document.body.classList.add("jw-modal-open");
+		document.body.classList.add("jw-modal-open");
+		this.currentElement = elem;
   }
 
   close(): void {	
