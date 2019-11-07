@@ -3,15 +3,14 @@ import { PaginateService } from "../shared/services/paginate.service";
 import { Book } from "../shared/models/book";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ModalService } from "../shared/services/modal.service";
-import { TableValue, TableValueFull } from '../shared/interfaces';
+import { TableValueFull } from '../shared/interfaces';
 
 const KEY = "BOOK";
 
 @Component({
   selector: "app-table-book",
   templateUrl: "./table-book.component.html",
-  styleUrls: ["./table-book.component.css"],
-  providers: [{ provide: PaginateService, useValue: "key" }]
+  styleUrls: ["./table-book.component.css"]
 })
 export class TableBookComponent implements OnInit {
 	book: Book = new Book("", "");
@@ -22,7 +21,7 @@ export class TableBookComponent implements OnInit {
 	initialPage: number = 1;
 	
   constructor(private fb: FormBuilder, private modalService: ModalService) {
-    this.pagination = new PaginateService(this.book.key);
+    this.pagination = new PaginateService();
   }
 
   ngOnInit() {
