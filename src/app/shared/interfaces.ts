@@ -10,21 +10,20 @@ export class Pager {
     public endIndex: number,
     public pages: Array<number>
   ) {}
-	}
+}
 
-	export class TableValue{
-		constructor(
-			public nameBook: string,
-			public authorBook: string
-		){}
-	}
+export class TableValue {
+  constructor(public nameBook: string, public authorBook: string) {}
+}
 
-	export class TableValueFull{
-		constructor(
-				public key: string,
-				public value:{
-					nameBook: string,
-					authorBook: string
-				}
-		){}
-	}
+export class TableValueFull {
+  constructor(
+    public key: string,
+    public value: {
+      nameBook: string;
+      authorBook: string;
+    }
+  ) {}
+}
+
+export let array: Array<any> = [];

@@ -1,8 +1,7 @@
 import { Injectable, SimpleChanges } from "@angular/core";
+import { array } from "../interfaces";
 @Injectable({ providedIn: "root" })
 export class ChangeTableService {
-
-  array: Array<any> = [];
 
 	constructor() {
 	}
@@ -13,26 +12,14 @@ export class ChangeTableService {
       let item = localStorage.getItem(key);
       let object = JSON.parse(item);
       let objectValue = { key: key, value: object };
-      this.array.unshift(objectValue);
+      array.unshift(objectValue);
     }
     return this.itemsPage();
   }
 
-	checkArray(value: number) {
-    if (this.array && this.array.length) {
-      this.setPage(value);
-    }
-  }
-
-	checkChanges(changes: SimpleChanges, initialPage: number) {
-    if (changes.pager.currentValue == changes.pager.previousValue) {
-      this.setPage(initialPage);
-    }
-  }
-
 	arrayRemovingElement(elem, index) {
     localStorage.removeItem(elem.key);
-    this.array.splice(index, 1);
+    array.splice(index, 1);
     return this.itemsPage();
 	}
 	
@@ -41,7 +28,7 @@ export class ChangeTableService {
       key: key + element.key,
       value: { nameBook: element.name, authorBook: element.author }
     };
-    this.array.unshift(objectValue);
+    array.unshift(objectValue);
     localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
     return this.itemsPage();
   }
@@ -60,8 +47,8 @@ export class ChangeTableService {
 	}
 	
   itemsPage() {
-    let pager = this.paginate(this.array.length);
-    return this.array.slice(pager.startIndex, pager.endIndex + 1);
+    let pager = this.paginate(array.length);
+    return array.slice(pager.startIndex, pager.endIndex + 1);
 	}
 	
 }

@@ -25,3 +25,5 @@ class C extends A {
 let aa = new B();
 let text = aa.getFull();
 console.log(text);
+
+
