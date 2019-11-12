@@ -7,6 +7,7 @@ export class ChangeTableService {
 	
 	// datasource
 	array: Array<TableValueFull> = [];
+	pagerr:Pager;
 
 	constructor() {
 	}
@@ -52,7 +53,7 @@ export class ChangeTableService {
 	}
 	
   itemsPage() {
-    const pagerr = pager(this.array.length);
-    return this.array.slice(pagerr.startIndex, pagerr.endIndex + 1);
+		this.pagerr = pager(this.array.length);
+    return this.array.slice(this.pagerr.startIndex, this.pagerr.endIndex + 1);
 	}
 }	

@@ -1,3 +1,7 @@
-<app-table-book>
-	
-</app-table-book>
+<nav>
+    <li routerLinkActive="active" *ngFor="let link of links">
+      <a [routerLink]="[link.url]">{{ link.name }}</a>
+    </li>
+</nav>
+
+<router-outlet></router-outlet>

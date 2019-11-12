@@ -7,7 +7,9 @@ import { TableBookComponent } from "./table-book/table-book.component";
 import { TableUsersComponent } from "./table-users/table-users.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PaginationComponent } from "./pagination/pagination.component";
-import { ModalComponent } from './modal/modal.component';
+import { ModalComponent } from "./modal/modal.component";
+import { AppRoutingModule } from "./app-routing.module";
+
 // import { ModalModule } from "./modal/modal.module";
 
 @NgModule({
@@ -16,10 +18,10 @@ import { ModalComponent } from './modal/modal.component';
     DashboardComponent,
     TableBookComponent,
     TableUsersComponent,
-		PaginationComponent,
-		ModalComponent
+    PaginationComponent,
+    ModalComponent
   ],
-  imports: [BrowserModule, ReactiveFormsModule, FormsModule],
+  imports: [BrowserModule, ReactiveFormsModule, FormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent]
 })

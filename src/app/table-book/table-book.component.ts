@@ -15,7 +15,7 @@ const KEY = "BOOK";
 export class TableBookComponent implements OnInit {
 	book: Book = new Book("", "");
 	pageOfItems: TableValueFull[];
-  tableBookForm: FormGroup;
+	tableBookForm: FormGroup;
 	protected pagination;
 	changeTableService: ChangeTableService;
 

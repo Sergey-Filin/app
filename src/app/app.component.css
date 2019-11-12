@@ -1,0 +1,17 @@
+.active {
+  color: red;
+}
+a {
+  text-decoration: none;
+}
+
+li {
+	list-style-type: none;	
+	margin-left: 10px;
+}
+
+nav{
+	display: flex;
+  justify-content: center;
+	align-items: center;
+}
