@@ -1,7 +1,12 @@
-import { Injectable, SimpleChanges } from "@angular/core";
-import { array } from "../interfaces";
+import { Injectable } from "@angular/core";
+import { TableValueFull, Pager } from '../interfaces';
+import { pager } from "../paginationPage";
+
 @Injectable({ providedIn: "root" })
-export class ChangeTableService {
+export class ChangeTableService {    
+	
+	// datasource
+	array: Array<TableValueFull> = [];
 
 	constructor() {
 	}
@@ -12,14 +17,14 @@ export class ChangeTableService {
       let item = localStorage.getItem(key);
       let object = JSON.parse(item);
       let objectValue = { key: key, value: object };
-      array.unshift(objectValue);
+      this.array.unshift(objectValue);
     }
     return this.itemsPage();
   }
 
 	arrayRemovingElement(elem, index) {
     localStorage.removeItem(elem.key);
-    array.splice(index, 1);
+    this.array.splice(index, 1);
     return this.itemsPage();
 	}
 	
@@ -28,7 +33,7 @@ export class ChangeTableService {
       key: key + element.key,
       value: { nameBook: element.name, authorBook: element.author }
     };
-    array.unshift(objectValue);
+    this.array.unshift(objectValue);
     localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
     return this.itemsPage();
   }
@@ -36,7 +41,7 @@ export class ChangeTableService {
   change(currentValueNameBook, currentValueAuthorBook, currentKey, key) {
     localStorage.removeItem(currentKey);
 
-    let objectValue = {
+    const objectValue = {
       key: key + currentValueNameBook + currentValueAuthorBook,
       value: {
         nameBook: currentValueNameBook,
@@ -47,8 +52,7 @@ export class ChangeTableService {
 	}
 	
   itemsPage() {
-    let pager = this.paginate(array.length);
-    return array.slice(pager.startIndex, pager.endIndex + 1);
+    const pagerr = pager(this.array.length);
+    return this.array.slice(pagerr.startIndex, pagerr.endIndex + 1);
 	}
-	
-}
+}	

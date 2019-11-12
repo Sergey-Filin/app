@@ -22,8 +22,6 @@ export class TableValueFull {
     public value: {
       nameBook: string;
       authorBook: string;
-    }
+	}
   ) {}
 }
-
-export let array: Array<any> = [];

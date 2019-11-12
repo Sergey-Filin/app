@@ -1,31 +1,27 @@
 import { Injectable, SimpleChanges } from "@angular/core";
-import { Pager, array } from "../interfaces";
-import { PaginationPage } from "../paginationPage";
+import { pager } from "../paginationPage";
 
 @Injectable({ providedIn: "root" })
 export class PaginateService {
-  // PaginatedDataSource
-  paginationPage: PaginationPage;
   pager: any = {};
 
   constructor() {
-    this.paginationPage = new PaginationPage();
   }
 
-  checkArray(value: number) {
+  checkArray(value: number, array) {
     if (array && array.length) {
-      this.setPage(value);
+      this.setPage(array, value);
     }
   }
 
-  checkChanges(changes: SimpleChanges, initialPage: number) {
+  checkChanges(changes: SimpleChanges, initialPage: number, array) {
     if (changes.pager.currentValue == changes.pager.previousValue) {
-      this.setPage(initialPage);
+      this.setPage(array, initialPage);
     }
   }
 
-  setPage(page: number, pageSize = 10, maxPages = 10) {
-    this.pager = this.paginationPage.paginate( array.length, page, pageSize, maxPages);
+  setPage(array, page: number, pageSize = 10, maxPages = 10) {
+    this.pager = pager(array.length, page, pageSize, maxPages);
     return array.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
 }

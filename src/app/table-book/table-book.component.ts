@@ -4,7 +4,7 @@ import { Book } from "../shared/models/book";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { ModalService } from "../shared/services/modal.service";
 import { TableValueFull } from '../shared/interfaces';
-
+import { ChangeTableService } from '../shared/services/changeTable.service';
 const KEY = "BOOK";
 
 @Component({
@@ -14,22 +14,24 @@ const KEY = "BOOK";
 })
 export class TableBookComponent implements OnInit {
 	book: Book = new Book("", "");
-	pageOfItems: TableValueFull;  // = new TableValueFull("",{"", ""});
+	pageOfItems: TableValueFull[];
   tableBookForm: FormGroup;
-  protected pagination;
+	protected pagination;
+	changeTableService: ChangeTableService;
 
 	initialPage: number = 1;
 	
   constructor(private fb: FormBuilder, private modalService: ModalService) {
-    this.pagination = new PaginateService();
+		this.pagination = new PaginateService();
+		this.changeTableService = new ChangeTableService();
   }
 
   ngOnInit() {
     this.tableBookForm = this.fb.group({
       nameBook: ["", Validators.required],
       authorBook: ["", Validators.required]
-    });
-    this.pageOfItems = this.pagination.initValue();
+		});
+    this.pageOfItems = this.changeTableService.initValue();
   }
 
   get f() {
@@ -37,28 +39,28 @@ export class TableBookComponent implements OnInit {
   }
 
 	onModalFormGroup(modalForm, key = KEY){
-		this.pagination.change(modalForm.modalForm.modalNameBook, modalForm.modalForm.modalAuthorBook, modalForm.currentKey, key);
+		this.changeTableService.change(modalForm.modalForm.modalNameBook, modalForm.modalForm.modalAuthorBook, modalForm.currentKey, key);
 	}
 
-	openModal(id: string, elem) {			//  записать новое значение туда где изменяем || передать значение изменяемого елемента || привязка в реактивных формах 
+	openModal(id: string, elem) {		
 		elem.key = KEY + elem.value.nameBook + elem.value.authorBook;
 		this.modalService.open(id, elem);
 	}
 
-  onCheckArray(value: number) {
-		this.pagination.checkArray(value);
+  onCheckArray(value: number, array = this.changeTableService.array) {
+		this.pagination.checkArray(value, array);
   }
 
-  onCheckChanges(changes: SimpleChanges) {
-    this.pagination.checkChanges(changes, this.initialPage);
+  onCheckChanges(changes: SimpleChanges, array = this.changeTableService.array) {
+    this.pagination.checkChanges(changes, this.initialPage, array);
   }
 
-  onChangePage(page: number) {
-    this.pageOfItems = this.pagination.setPage(page);
+  onChangePage(page: number, array = this.changeTableService.array) {
+    this.pageOfItems = this.pagination.setPage(array, page);
   }
 
   remove(elem, index) {
-    this.pageOfItems = this.pagination.arrayRemovingElement(elem, index);
+    this.pageOfItems = this.changeTableService.arrayRemovingElement(elem, index);
   }
 
   submit() {
@@ -66,6 +68,6 @@ export class TableBookComponent implements OnInit {
       this.tableBookForm.value.nameBook,
       this.tableBookForm.value.authorBook
     );
-    this.pageOfItems = this.pagination.unshift(book, KEY);
+    this.pageOfItems = this.changeTableService.unshift(book, KEY);
   }
 }

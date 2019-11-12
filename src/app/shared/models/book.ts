@@ -1,4 +1,4 @@
-export class Book implements Keyable {
+export class Book {
   key: String;
 
   constructor(public name: string, public author: string) {
@@ -6,6 +6,3 @@ export class Book implements Keyable {
   }
 }
 
-export interface Keyable {
-  key: String;
-}
