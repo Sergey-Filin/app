@@ -7,8 +7,8 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   links = [
-    { url: "/dashboard", name: "Дашборд" },
-    { url: "/tableusers", name: "Таблица пользователей" },
-    { url: "/tablebooks", name: "Таблица книг" }
+    { url: "/dashboard", name: "Dashboard" },
+    { url: "/tableusers", name: "User table" },
+    { url: "/tablebooks", name: "Book table" }
   ];
 }

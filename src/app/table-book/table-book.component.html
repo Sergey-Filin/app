@@ -6,46 +6,31 @@
         <li>
           <label for="name"
             >Name book:
-            <input
-              class="ng-invalid ng-touched"
-              type="text"
-              name="name"
-              placeholder="Введите название книги:"
-              required
-              formControlName="nameBook"
-            />
+            <input class="ng-invalid ng-touched" type="text" name="name" placeholder="Enter book title:" required formControlName="nameBook"/>
           </label>
         </li>
         <li>
           <label for="author"
             >Author book:
-            <input
-              class="ng-invalid ng-touched"
-              type="text"
-              name="author"
-              formControlName="authorBook"
-              placeholder="Введите автора книги:"
-              required
-            />
+            <input class="ng-invalid ng-touched" type="text" name="author" formControlName="authorBook" placeholder="Enter author of the book:" required/>
           </label>
         </li>
         <span>
-          <button
-            type="submit"
-            class="button"
-            [disabled]="f.nameBook.invalid || f.authorBook.invalid"
-            (click)="submit()"
-          >
+          <button type="submit" class="button" [disabled]="_nameBook.invalid || _authorBook.invalid" (click)="submit()">
             Enter
           </button>
         </span>
       </ul>
-      <div
-				*ngIf="(f.nameBook.invalid || f.nameBook.untouched) || (f.authorBook.invalid || f.authorBook.untouched)"
-			>
-			<!-- "(f['nameBook'].valid || f['nameBook'].untouched) && (f['authorBook'].valid || f['authorBook'].untouched)" -->			
-        Invalid input
-      </div>
+			<div class="errors addValue">
+				<span *ngIf="_nameBook.invalid && (_nameBook.touched || _nameBook.dirty)">Field "Name Book" is required</span>	
+				<span *ngIf="_authorBook.invalid && (_authorBook.touched || _authorBook.dirty)">Field "Author of the Book" is required</span>	
+			</div>
+			<div class="search">
+				<label for="search"
+					> Search by ......
+					<input type="text" name="search" placeholder="Enter name" [value] = "_searchStr.value" formControlName="searchStr">
+				</label>
+			</div>
     </fieldset>
   </div>
 
@@ -58,7 +43,7 @@
       <th>Author</th>
       <th>Editing</th>
     </tr>
-    <tr *ngFor="let val of pageOfItems; let i = index">
+		<tr *ngFor="let val of pageOfItems | search:searchStr; let i = index">
       <td>{{ val.value.nameBook }}</td>
       <td>{{ val.value.authorBook }}</td>
       <td>
@@ -69,14 +54,6 @@
 	</table>	
 </form>
 
-<app-pagination
-	[pager]="changeTableService.pagerr"
-  (initValue)="onCheckArray($event)"
-  (checkChanges)="onCheckChanges($event)"
-  (changePage)="onChangePage($event)"
-></app-pagination>
+<app-pagination [pager]="changeTableService.pagerr" (initValue)="onCheckArray($event)" (checkChanges)="onCheckChanges($event)" (changePage)="onChangePage($event)"></app-pagination>
 
-<jw-modal
-	(modalFormGroup) = "onModalFormGroup($event)"
-	id = "custom-modal-1"
-></jw-modal>
+<jw-modal (modalFormGroup) = "onModalFormGroup($event)" id = "custom-modal-1"></jw-modal>

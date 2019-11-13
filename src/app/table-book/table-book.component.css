@@ -42,4 +42,13 @@ input.ng-touched.ng-valid {
   border: solid green 2px;
 }
 
+.errors{
+	color: red;
+}
 
+.addValue > span {
+	margin-left: 70px;
+}
+.search{
+	text-align: center;
+}

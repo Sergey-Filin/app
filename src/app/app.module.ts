@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PaginationComponent } from "./pagination/pagination.component";
 import { ModalComponent } from "./modal/modal.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { SearchPipe } from './shared/search.pipe';
 
 // import { ModalModule } from "./modal/modal.module";
 
@@ -19,7 +20,8 @@ import { AppRoutingModule } from "./app-routing.module";
     TableBookComponent,
     TableUsersComponent,
     PaginationComponent,
-    ModalComponent
+		ModalComponent,
+		SearchPipe
   ],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule, AppRoutingModule],
   providers: [],

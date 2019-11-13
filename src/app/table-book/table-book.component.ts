@@ -29,14 +29,23 @@ export class TableBookComponent implements OnInit {
   ngOnInit() {
     this.tableBookForm = this.fb.group({
       nameBook: ["", Validators.required],
-      authorBook: ["", Validators.required]
+			authorBook: ["", Validators.required],
+			searchStr: ["1111111111111111"]
 		});
     this.pageOfItems = this.changeTableService.initValue();
   }
 
-  get f() {
-    return this.tableBookForm.controls;
-  }
+	get _nameBook(){
+		return this.tableBookForm.get("nameBook");
+	}
+
+	get _authorBook(){
+		return this.tableBookForm.get("authorBook");
+	}
+
+	get _searchStr(){
+		return this.tableBookForm.get("searchStr");
+	}
 
 	onModalFormGroup(modalForm, key = KEY){
 		this.changeTableService.change(modalForm.modalForm.modalNameBook, modalForm.modalForm.modalAuthorBook, modalForm.currentKey, key);
