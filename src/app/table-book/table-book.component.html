@@ -28,30 +28,30 @@
 			<div class="search">
 				<label for="search"
 					> Search by ......
-					<input type="text" name="search" placeholder="Enter name" [value] = "_searchStr.value" formControlName="searchStr">
+					<input type="text" name="search" placeholder="Enter name" #query (keyup)="filter(query.value)"   formControlName="searchStr">
 				</label>
 			</div>
     </fieldset>
   </div>
 
-  <table>
+  <table *ngIf="pageOfItems.length !== 0">
     <caption>
-      Book table
     </caption>
     <tr>
       <th>Title</th>
       <th>Author</th>
       <th>Editing</th>
     </tr>
-		<tr *ngFor="let val of pageOfItems | search:searchStr; let i = index">
+		<tr *ngFor="let val of pageOfItems; let i = index">
       <td>{{ val.value.nameBook }}</td>
       <td>{{ val.value.authorBook }}</td>
       <td>
         <button (click)="openModal('custom-modal-1', val)">Edit</button>
         <button (click)="remove(val, i)">Delete</button>
       </td>
-	    </tr>
+		</tr>
 	</table>	
+	<p class= "errors emptyTable" *ngIf="pageOfItems.length === 0">По данному фильтру не удалось найти книгу</p>
 </form>
 
 <app-pagination [pager]="changeTableService.pagerr" (initValue)="onCheckArray($event)" (checkChanges)="onCheckChanges($event)" (changePage)="onChangePage($event)"></app-pagination>

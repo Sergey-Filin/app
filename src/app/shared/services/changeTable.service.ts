@@ -21,7 +21,13 @@ export class ChangeTableService {
       this.array.unshift(objectValue);
     }
     return this.itemsPage();
-  }
+	}
+	
+	filter(value){
+		let filterArray = this.array.filter(book => book.value.nameBook.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || book.value.authorBook.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+		this.pagerr = pager(filterArray.length);
+    return filterArray.slice(this.pagerr.startIndex, this.pagerr.endIndex + 1);
+	}
 
 	arrayRemovingElement(elem, index) {
     localStorage.removeItem(elem.key);

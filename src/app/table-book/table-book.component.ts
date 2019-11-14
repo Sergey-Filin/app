@@ -30,7 +30,7 @@ export class TableBookComponent implements OnInit {
     this.tableBookForm = this.fb.group({
       nameBook: ["", Validators.required],
 			authorBook: ["", Validators.required],
-			searchStr: ["1111111111111111"]
+			searchStr: [""]
 		});
     this.pageOfItems = this.changeTableService.initValue();
   }
@@ -45,6 +45,10 @@ export class TableBookComponent implements OnInit {
 
 	get _searchStr(){
 		return this.tableBookForm.get("searchStr");
+	}
+
+	filter(value){
+		this.pageOfItems = this.changeTableService.filter(value);
 	}
 
 	onModalFormGroup(modalForm, key = KEY){
