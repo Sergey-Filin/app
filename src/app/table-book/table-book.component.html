@@ -51,7 +51,7 @@
       </td>
 		</tr>
 	</table>	
-	<p class= "errors emptyTable" *ngIf="pageOfItems.length === 0">По данному фильтру не удалось найти книгу</p>
+	<p class= "errors emptyTable" *ngIf="pageOfItems.length === 0">Book could not be found by this filter</p>
 </form>
 
 <app-pagination [pager]="changeTableService.pagerr" (initValue)="onCheckArray($event)" (checkChanges)="onCheckChanges($event)" (changePage)="onChangePage($event)"></app-pagination>

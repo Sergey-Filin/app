@@ -22,6 +22,17 @@ export class TableValueFull {
     public value: {
       nameBook: string;
       authorBook: string;
-	}
+    }
+  ) {}
+}
+
+export class UserValueFull {
+  constructor(
+    public key: string,
+    public value: {
+      name: string;
+      email: string;
+      phone: number;
+    }
   ) {}
 }

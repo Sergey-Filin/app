@@ -1,1 +1,68 @@
-<p>table-users works!</p>
+<form [formGroup]="userForm">
+  <div class="inputik">
+    <fieldset>
+      <legend>ADD USER</legend>
+      <ul type="none">
+        <li>
+          <label for="name"
+            >User name:
+						<input class="ng-invalid ng-touched" type="text" name="name" placeholder="Enter user name:" required formControlName="name"/>
+          </label>
+        </li>
+        <li>
+          <label for="Email"
+            >User Email :
+						<input class="ng-invalid ng-touched" type="email" name="Email" placeholder="Enter user email:" required formControlName="email"/>
+          </label>
+				</li>
+				<li>
+          <label for="phone"
+            >User phone number:
+            <input class="ng-invalid ng-touched" type="tel" name="phone" placeholder="Enter user phone number:" required formControlName="phone"/>
+          </label>
+        </li>
+        <span>
+					<button type="submit" class="button" [disabled]="_name.invalid || _email.invalid || _phone.invalid" (click)="submit()">
+            Enter
+          </button>
+        </span>
+      </ul>
+			<div class="errors addValue">
+				<span *ngIf="_name.invalid && (_name.touched || _name.dirty)">Field "User name" is required</span>	
+				<span *ngIf="_email.invalid && (_email.touched || _email.dirty)">Field "User email" is required</span>	
+				<span *ngIf="_phone.invalid && (_phone.touched || _phone.dirty)">Field "User phone number" is required</span>	
+			</div>
+			<div class="search">
+				<label for="search"
+					> Search by filter:
+					<input type="text" name="search" placeholder="Enter name" #query (keyup)="filter(query.value)"  >
+				</label>
+			</div>
+    </fieldset>
+  </div>
+
+  <table *ngIf="pageOfItems.length !== 0">
+    <caption>
+    </caption>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Editing</th>
+    </tr>
+		<tr *ngFor="let val of pageOfItems; let i = index">
+      <td>{{ val.value.name }}</td>
+      <td>{{ val.value.email }}</td>
+      <td>{{ val.value.phone }}</td>
+      <td>
+        <button (click)="openModal('custom-modal-1', val)">Edit</button>
+        <button (click)="remove(val, i)">Delete</button>
+      </td>
+		</tr>
+	</table>	
+	<p class= "errors emptyTable" *ngIf="pageOfItems.length === 0">Book could not be found by this filter</p>
+</form>
+
+<app-pagination [pager]="userService.pagerr" (initValue)="onCheckArray($event)" (checkChanges)="onCheckChanges($event)" (changePage)="onChangePage($event)"></app-pagination>
+
+<jw-modal (modalFormGroup) = "onModalFormGroup($event)" id = "custom-modal-1"></jw-modal>

@@ -1,0 +1,57 @@
+table {
+  border-collapse: collapse;
+	margin: 15px auto auto auto;
+}
+
+td,
+th {
+  border: 1px solid black;
+  padding: 0px 10px 0px 10px;
+}
+
+th {
+  height: 50px;
+}
+ul {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+li {
+  list-style-type: none;
+  margin-left: 5px;
+}
+
+.inputik {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  background-color: #00e8e8;
+  border-radius: 30px;
+  padding: 5px 12px 5px 12px;
+  margin-left: 5px;
+}
+
+input.ng-touched.ng-invalid {
+  border: solid red 2px;
+}
+input.ng-touched.ng-valid {
+  border: solid green 2px;
+}
+
+.errors {
+  color: red;
+}
+
+.addValue > span {
+  margin-left: 70px;
+}
+.search {
+  text-align: center;
+}
+.emptyTable {
+  text-align: center;
+}

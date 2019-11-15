@@ -13,7 +13,6 @@ const KEY = "BOOK";
   styleUrls: ["./table-book.component.css"]
 })
 export class TableBookComponent implements OnInit {
-	book: Book = new Book("", "");
 	pageOfItems: TableValueFull[];
 	tableBookForm: FormGroup;
 	protected pagination;
