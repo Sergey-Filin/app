@@ -32,7 +32,7 @@ export class UserValueFull {
     public value: {
       name: string;
       email: string;
-      phone: number;
+			phone: number;
     }
   ) {}
 }

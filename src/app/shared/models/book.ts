@@ -7,8 +7,8 @@ export class Book {
 }
 
 export class User {
-	key: String;
-	constructor(public name:string, public email:string, public phone:string){
-		this.key = name + email + phone;
-	}
+  key: String;
+  constructor(public name: string, public email: string, public phone: number) {
+    this.key = name + email + phone;
+  }
 }

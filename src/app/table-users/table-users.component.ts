@@ -32,8 +32,7 @@ export class TableUsersComponent implements OnInit {
       email: ["",[Validators.required, Validators.pattern("[a-zA-Z_]+@[a-zA-Z_]+?.[a-zA-Z]{2,3}")]],
       phone: ["", [Validators.required, Validators.pattern(/^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/)]]
     });
-		this.pageOfItems = this.userService.initValue();
-		console.log(this.pageOfItems)
+		this.pageOfItems = this.userService.initValue(KEY);
   }
 
   get _name() {

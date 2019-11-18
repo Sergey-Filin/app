@@ -31,7 +31,7 @@ export class TableBookComponent implements OnInit {
 			authorBook: ["", Validators.required],
 			searchStr: [""]
 		});
-    this.pageOfItems = this.changeTableService.initValue();
+    this.pageOfItems = this.changeTableService.initValue(KEY);
   }
 
 	get _nameBook(){

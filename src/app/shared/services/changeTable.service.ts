@@ -12,8 +12,9 @@ export class ChangeTableService {
 	constructor() {
 	}
 
-  initValue() {
-    let keys = Object.keys(localStorage); // СПЕЦ СИМВОЛЫ
+  initValue(key: string) {
+		let keys = Object.keys(localStorage); // СПЕЦ СИМВОЛЫ
+		keys = keys.filter(str => str.slice(0,4) === key);
     for (let key of keys) {
       let item = localStorage.getItem(key);
       let object = JSON.parse(item);
