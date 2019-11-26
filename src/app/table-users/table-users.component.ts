@@ -70,12 +70,12 @@ export class TableUsersComponent implements OnInit {
 		this.pageOfItems = this.userService.unshift(user, KEY);
 	}
 
-}
-// 	onModalFormGroup(modalForm, key = KEY){
-// 		this.changeTableService.change(modalForm.modalForm.modalNameBook, modalForm.modalForm.modalAuthorBook, modalForm.currentKey, key);
-// 	}
+	openModal(id: string, elem) {
+		elem.key = KEY + elem.value.name + elem.value.email + elem.value.phone;
+		this.modalService.open(id, elem);
+	}
 
-// 	openModal(id: string, elem) {
-// 		elem.key = KEY + elem.value.nameBook + elem.value.authorBook;
-// 		this.modalService.open(id, elem);
-// 	}
+	onModalFormGroup(modalForm, key = KEY){
+		this.userService.change(modalForm.modalForm.modalName, modalForm.modalForm.modalEmail, modalForm.modalForm.modalPhone, modalForm.currentKey, key);
+	}		
+}

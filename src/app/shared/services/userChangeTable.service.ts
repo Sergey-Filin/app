@@ -11,13 +11,14 @@ export class UserChangeTableService {
 	constructor() {	}
 
 	filter(value){
-		let filterArray = this.array.filter(user => 
-			  user.value.name.toLocaleLowerCase().includes(value.toLocaleLowerCase()) 
+		let filterArray = this.array.filter(user =>{  	
+			return user.value.name.toLocaleLowerCase().includes(value.toLocaleLowerCase()) 
 			  || 
 			  user.value.email.toLocaleLowerCase().includes(value.toLocaleLowerCase())
 			  ||
-				user.value.phone
-			);
+				String(user.value.phone).includes(value)
+		}
+		);
 		this.pagerr = pager(filterArray.length);
     return filterArray.slice(this.pagerr.startIndex, this.pagerr.endIndex + 1);
 	}
@@ -47,6 +48,20 @@ export class UserChangeTableService {
     localStorage.removeItem(elem.key);
     this.array.splice(index, 1);
     return this.itemsPage();
+	}
+
+	change(currentValueName, currentValueEmail, currentValuePhone, currentKey, key) {
+    localStorage.removeItem(currentKey);
+
+    const objectValue = {
+      key: key + currentValueName + currentValueEmail + currentValuePhone,
+      value: {
+        name: currentValueName,
+        email: currentValueEmail,
+        phone: currentValuePhone,
+      }
+    };
+    localStorage.setItem(objectValue.key, JSON.stringify(objectValue.value));
 	}
 
 	itemsPage() {

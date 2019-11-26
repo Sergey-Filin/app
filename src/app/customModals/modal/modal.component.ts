@@ -7,7 +7,7 @@ import {
   Output,
   EventEmitter
 } from "@angular/core";
-import { ModalService } from "../shared/services/modal.service";
+import { ModalService } from "../../shared/services/modal.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
@@ -17,7 +17,6 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class ModalComponent implements OnInit, OnDestroy {
   @Input() id: string;
-	@Input() tableBookValue: any;
 	private element: any;
   modalForm: FormGroup;
 	@Output() modalFormGroup = new EventEmitter();
@@ -29,7 +28,7 @@ export class ModalComponent implements OnInit, OnDestroy {
     private modalService: ModalService,
     private el: ElementRef
   ) {
-    this.element = el.nativeElement;
+    this.element = this.el.nativeElement;
   }
 
   ngOnInit(): void {
@@ -52,11 +51,14 @@ export class ModalComponent implements OnInit, OnDestroy {
 		this.modalService.add(this);
 	}
 	
-	get f() {
-    return this.modalForm.controls;
+	get _modalNameBook() {
+    return this.modalForm.get("modalNameBook");
+  }
+	get _modalAuthorBook() {
+    return this.modalForm.get("modalAuthorBook");
   }
 
-	closeModal(id: string) {
+	closeModal(id: string = this.id) {
 		this.currentElement.value.nameBook = this.modalForm.controls.modalNameBook.value;
 		this.currentElement.value.authorBook = this.modalForm.controls.modalAuthorBook.value;
 		this.modalFormGroup.emit({modalForm: this.modalForm.value, currentKey: this.currentElement.key});

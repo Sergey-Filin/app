@@ -25,7 +25,11 @@ export class ChangeTableService {
 	}
 	
 	filter(value){
-		let filterArray = this.array.filter(book => book.value.nameBook.toLocaleLowerCase().includes(value.toLocaleLowerCase()) || book.value.authorBook.toLocaleLowerCase().includes(value.toLocaleLowerCase()));
+		let filterArray = this.array.filter(book => 
+			book.value.nameBook.toLocaleLowerCase().includes(value.toLocaleLowerCase()) 
+			|| 
+			book.value.authorBook.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+		);
 		this.pagerr = pager(filterArray.length);
     return filterArray.slice(this.pagerr.startIndex, this.pagerr.endIndex + 1);
 	}

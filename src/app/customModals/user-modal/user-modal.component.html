@@ -1,0 +1,47 @@
+<!-- (ngSubmit)= "submit()" -->
+<form [formGroup]="modalForm" class="jw-modal-form">
+  <div class="jw-modal">
+    <div class="jw-modal-body">
+      <h1>Data change</h1>
+      <p>
+        Change user name:
+        <input
+          class="ng-invalid ng-touched"
+          type="text"
+          name="name"
+          formControlName="modalName"
+          required
+        />
+      </p>
+      <p>
+        Change user email:
+        <input
+          class="ng-invalid ng-touched"
+          type="text"
+          formControlName="modalEmail"
+          name="email"
+          required
+        />
+      </p>
+      <p>
+        Change user phone:
+        <input
+          class="ng-invalid ng-touched"
+          type="text"
+          formControlName="modalPhone"
+          name="phone"
+          required
+        />
+      </p>
+      <button
+        type="submit"
+        (click)="closeModal()"
+				[disabled]="_modalName.invalid || _modalEmail.invalid || _modalPhone.invalid"
+      >
+        Enter
+      </button>
+      <button (click)="closeModal()">Close</button>
+    </div>
+  </div>
+  <div class="jw-modal-background"></div>
+</form>

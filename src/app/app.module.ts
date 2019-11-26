@@ -7,8 +7,9 @@ import { TableBookComponent } from "./table-book/table-book.component";
 import { TableUsersComponent } from "./table-users/table-users.component";
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { PaginationComponent } from "./pagination/pagination.component";
-import { ModalComponent } from "./modal/modal.component";
+import { ModalComponent } from "./customModals/modal/modal.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { UserModalComponent } from './customModals/user-modal/user-modal.component';
 
 // import { ModalModule } from "./modal/modal.module";
 
@@ -20,6 +21,7 @@ import { AppRoutingModule } from "./app-routing.module";
     TableUsersComponent,
     PaginationComponent,
 		ModalComponent,
+		UserModalComponent,
   ],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule, AppRoutingModule],
   providers: [],

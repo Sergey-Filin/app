@@ -55,14 +55,14 @@
       <td>{{ val.value.email }}</td>
       <td>{{ val.value.phone }}</td>
       <td>
-        <button (click)="openModal('custom-modal-1', val)">Edit</button>
+        <button (click)="openModal('custom-modal-2', val)">Edit</button>
         <button (click)="remove(val, i)">Delete</button>
       </td>
 		</tr>
 	</table>	
-	<p class= "errors emptyTable" *ngIf="pageOfItems.length === 0">Book could not be found by this filter</p>
+	<p class= "errors emptyTable" *ngIf="pageOfItems.length === 0">User could not be found by this filter</p>
 </form>
 
 <app-pagination [pager]="userService.pagerr" (initValue)="onCheckArray($event)" (checkChanges)="onCheckChanges($event)" (changePage)="onChangePage($event)"></app-pagination>
 
-<jw-modal (modalFormGroup) = "onModalFormGroup($event)" id = "custom-modal-1"></jw-modal>
+<app-user-modal (modalFormGroup) = "onModalFormGroup($event)" id = "custom-modal-2"></app-user-modal>
