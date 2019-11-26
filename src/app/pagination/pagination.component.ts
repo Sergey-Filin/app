@@ -21,7 +21,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Output() changePage: EventEmitter<number> = new EventEmitter<number>(true);
   constructor() {}
 
-	page: number = 0;
+	page: number = 1;
 
   ngOnInit() {
 		this.initValue.emit(1);
@@ -56,6 +56,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   public setPage(page) {
+		this.page = page;
     this.changePage.emit(page);
   }
 }

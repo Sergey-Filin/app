@@ -1,14 +1,13 @@
-<ul
-  *ngIf="pager.pages && pager.pages.length"
-  class="pagination"
->
+<ul *ngIf="pager.pages && pager.pages.length" class="pagination">
   <li
+    *ngIf="this.page !== this.pager.startPage"
     [ngClass]="{ disabled: pager.currentPage === 1 }"
     class="page-item first-item"
   >
     <a (click)="firstPage(1)">First</a>
   </li>
   <li
+    *ngIf="this.page !== this.pager.startPage"
     [ngClass]="{ disabled: pager.currentPage === 1 }"
     class="page-item previous-item"
   >
@@ -25,6 +24,7 @@
     [ngClass]="{
       disabled: pager.currentPage === pager.totalPages
     }"
+    *ngIf="pager.totalPages !== this.page"
     class="page-item next-item"
   >
     <a (click)="nextPage()">Next</a>
@@ -33,6 +33,7 @@
     [ngClass]="{
       disabled: pager.currentPage === pager.totalPages
     }"
+    *ngIf="pager.totalPages !== this.page"
     class="page-item last-item"
   >
     <a (click)="lastPage()">Last</a>
